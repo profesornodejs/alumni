@@ -4,8 +4,10 @@ const StudentShema = mongoose.Schema({
     name: String,
     surname: String,
     age: Number,
-    username: String,
-    password: String
+    credential: {
+        user: String,
+        password: String
+    }
 })
 
 const studentsModel = mongoose.model("students",StudentShema)

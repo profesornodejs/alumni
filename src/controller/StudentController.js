@@ -4,19 +4,24 @@ const routerStudent = require('../model/StudentModel')
 const studentController = async (req,res) => {
 
  try {
-    const user = req.params.user
-    const password = req.params.password
+ 
+    const nameUser = req.query.name;
+    const passwordUser = req.query.password;
 
-    console.log("request data [user]:" + user)
-    console.log("request data [password]:" + password)
+    console.log("request data [user]:" + nameUser)
+    console.log("request data [password]:" + passwordUser)
 
-    const data = await routerStudent.find({password: password, username: user}).exec()
-    console.log("response query mongo: " + data)
-    if(data) {
-        res.status(200).json(data)
-    } else {
-        res.status(404).json({message: "el recurso no se encontro"})
+    const data = await routerStudent.find({}).exec()
+
+    let response = {}
+
+    for (const document of data) {
+        if(document.credential.user == nameUser && document.credential.password == passwordUser) {
+            response = document
+        } 
     }
+    res.status(200).json(response)
+
  } catch (error) {
     res.status(500).json({message: "hubo un error al tratar de procesar la solicitus"})
  }

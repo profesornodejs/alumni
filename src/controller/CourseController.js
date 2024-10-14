@@ -1,9 +1,17 @@
-const courseModel = require('../model/StudentModel')
+const courseModel = require('../model/CourseModel')
 
 const CourseController = async (req,res) => {
  try {
+    
+    const nameUser = req.query.name;
+    const passwordUser = req.query.password;
+
+    console.log("credenciales, [user]:" + nameUser + " [password]:" + passwordUser)
+
     const data = await courseModel.find({}).exec()
+    
     console.log("response query mongo: " + data)
+
     if(data) {
         res.status(200).json(data)
     } else {
