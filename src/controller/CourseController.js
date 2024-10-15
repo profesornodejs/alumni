@@ -1,22 +1,11 @@
-const courseModel = require('../model/CourseModel')
+const courseService = require('../service/courseService')
 
 const CourseController = async (req,res) => {
  try {
-    
-    const nameUser = req.query.name;
-    const passwordUser = req.query.password;
-
-    console.log("credenciales, [user]:" + nameUser + " [password]:" + passwordUser)
-
-    const data = await courseModel.find({}).exec()
-    
+    const userId = req.query.id
+    const data = await courseService(userId)
     console.log("response query mongo: " + data)
-
-    if(data) {
-        res.status(200).json(data)
-    } else {
-        res.status(404).json({message: "el recurso no se encontro"})
-    }
+    res.status(200).json(data)
  } catch (error) {
     res.status(500).json({message: "hubo un error al tratar de procesar la solicitus"})
  }
