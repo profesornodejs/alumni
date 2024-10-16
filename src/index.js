@@ -1,14 +1,20 @@
 const routerStudent = require('./router/StudentRouter')
 const routerCourse = require('./router/CourseRouter.js')
+const routerComment = require('./router/CommentRouter.js')
 
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors');
 
+const bodyParser = require('body-parser');
+
 const app = express()
 
 app.use("/api/v1", routerStudent)
 app.use("/api/v1",routerCourse)
+app.use("/api/v1",routerComment)
+
+app.use(bodyParser.json())
 
 app.use(cors())
 

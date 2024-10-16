@@ -7,7 +7,8 @@ const StudentShema = mongoose.Schema({
     credential: {
         user: String,
         password: String
-    }
+    },
+    courses: Array
 })
 
 const studentsModel = mongoose.model("students",StudentShema)
