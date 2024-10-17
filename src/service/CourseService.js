@@ -12,4 +12,4 @@ const GetCourseByIdService = async (id) => {
 module.exports = { 
    getAllcourseService: GetAllcourseService,
    getCourseByIdService: GetCourseByIdService
-} 
+}

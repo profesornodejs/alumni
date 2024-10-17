@@ -2,6 +2,8 @@ const routerStudent = require('./router/StudentRouter')
 const routerCourse = require('./router/CourseRouter.js')
 const routerComment = require('./router/CommentRouter.js')
 
+const studentMidleware  = require('./midleware/StudentMidleware.js')
+
 const express = require('express')
 const mongoose = require('mongoose')
 const cors = require('cors');
@@ -9,6 +11,8 @@ const cors = require('cors');
 const bodyParser = require('body-parser');
 
 const app = express()
+
+app.use(studentMidleware.logMidleware)
 
 app.use("/api/v1", routerStudent)
 app.use("/api/v1",routerCourse)
