@@ -2,25 +2,24 @@ const routerStudent = require('./router/StudentRouter')
 const routerCourse = require('./router/CourseRouter.js')
 const routerComment = require('./router/CommentRouter.js')
 
-const studentMidleware  = require('./midleware/StudentMidleware.js')
 
 const express = require('express')
 const mongoose = require('mongoose')
-const cors = require('cors');
-
-const bodyParser = require('body-parser');
 
 const app = express()
 
-app.use(studentMidleware.logMidleware)
+app.use((req, res, next) => {
+    console.log("[middleware] trace data:" + " [method] " + req.method + " [hostname]" + req.hostname + " [path] " + req.path + " [start time] " + Date.now())
+    next()
+  })
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1", routerStudent)
 app.use("/api/v1",routerCourse)
 app.use("/api/v1",routerComment)
 
-app.use(bodyParser.json())
-
-app.use(cors())
 
 mongoose.connect('mongodb+srv://profesornodejs:Admin123@cluster0.60gmm.mongodb.net/alumni?retryWrites=true&w=majority&appName=cluster0',() => {
     console.log("estamos conectados a mongo atlas !!np")

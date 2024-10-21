@@ -1,32 +1,44 @@
 const commentModel = require('../model/CommentModel')
+const errorApp = require('../error/ErrorApp.js')
 
 const GetAllCommentByStudentId = async (studentId) => {
- try {
-     console.log("[GetAllComment Repository]")
-     const response = await commentModel.find({student: studentId}).exec()
-     console.log("[response comment model data]: " + response)
-     return response
- } catch (error) {
-    console.log("[Error repository course model]: " + error.message())
- }
+    try {
+        console.log("[GetAllComment Repository]")
+        const response = await commentModel.find({ student: studentId }).exec()
+        if(Object.keys(response).length === 0) {
+            throw new errorApp.notResultfoundException()
+        }
+        console.log("[response comment model data]: " + response)
+        return response
+    } catch (error) {
+        console.error("[Error query comment model]: " + error.message)
+        throw error
+    }
 
 }
 
-const CreateComment = (data) => {  
+const CreateComment = (data) => {
     try {
-        console.log("[CreateComment Repository with data]" + data)
+        console.log("[CreateComment Repository with data]")
         let comment = new commentModel(data);
-        comment.save().catch((ex) => {
-            console.log("[error persisten objet Comment]:" + ex.message())
-        })
-        return response
+        console.log("comment document: " + comment)
+
+        comment.save()
+            .then(savedComment => {
+                console.log("Saved Comment:", savedComment);
+            })
+            .catch(err => {
+                console.error("Error save Comment:", err.message);
+                throw err
+            })
     } catch (error) {
-       console.log("[Error repository course model]: " + error.message())
+        console.error("[Error repository course model]")
+         throw new errorApp.businessException("An error occurred while trying to connect to the database")
     }
-   
-   }
+
+}
 
 module.exports = {
     getAllCommentByStudentId: GetAllCommentByStudentId,
     createComment: CreateComment
- } 
+} 

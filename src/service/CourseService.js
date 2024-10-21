@@ -1,15 +1,15 @@
 
 const courseReposotory = require('../repository/CourseReposotory.js')
 
-const GetAllcourseService = () => {
-return courseReposotory.getAllCourse()
-}
-
-const GetCourseByIdService = async (id) => {
-   return await courseReposotory.GetCourseById(id)
+const DeleteCourseByIdService = async (id) => {
+   return await courseReposotory.deleteCourseById(id)
    }
 
+const GetAllcourseService = async () => {
+   return await courseReposotory.getAllCourse()
+}    
+
 module.exports = { 
-   getAllcourseService: GetAllcourseService,
-   getCourseByIdService: GetCourseByIdService
+   deleteCourseByIdService: DeleteCourseByIdService,
+   getAllcourseService: GetAllcourseService
 }

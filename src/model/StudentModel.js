@@ -8,9 +8,9 @@ const StudentShema = mongoose.Schema({
         user: String,
         password: String
     },
-    courses: Array
+    courses: [{type: mongoose.Types.ObjectId, ref: "courses"}]
 })
 
-const studentsModel = mongoose.model("students",StudentShema)
+const students = mongoose.model("students",StudentShema)
 
-module.exports = studentsModel
+module.exports = students

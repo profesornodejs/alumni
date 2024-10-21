@@ -1,11 +1,11 @@
 const mongoose = require('mongoose')
 
-const CourseShema = mongoose.Schema({
+const courseShema = mongoose.Schema({
     title: String,
     description: String,
     type: String
 })
 
-const coursesModel = mongoose.model("courses",CourseShema)
+const courses = mongoose.model("courses",courseShema)
 
-module.exports = coursesModel
+module.exports = courses

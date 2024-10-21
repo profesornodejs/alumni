@@ -2,8 +2,8 @@ const express = require('express')
 const courseController = require('../controller/CourseController.js')
 
 const routerCourse = express.Router();
-routerCourse.get("/course/all", courseController.getAllCourseController)
-routerCourse.get("/course/student", courseController.getCourseByIdController)
 
+routerCourse.delete('/course/:id', courseController.deleteCourseByIdController)
+routerCourse.get("/course",courseController.getAllCourseController)
 
 module.exports = routerCourse

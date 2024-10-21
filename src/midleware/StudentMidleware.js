@@ -1,22 +1,18 @@
+const errorApp = require('../error/ErrorApp.js')
 
-const LogMidleware = (req, res, next) => {
-    console.log("[api rest midleware]")
-    next()
-}
 
-const ValidateUser = (req, res, next) => {
-    console.log("[midleware - validateUser]")
-    const user = req.query.user
-    if (user) {
-        console.log("query param [user]:" + user)
-        next()
+const ValidateUserAge = (req, res, next) => {
+    console.log("[midleware - ValidateUserAge]")
+    const age = req.body.age
+    if (age <= 18) {
+        const errorResponse = new errorApp.responseException("the user is a minor","midlewareValidation", "ValidateUserAge")
+        res.status(400).json(errorResponse)
     } else {
-        res.status(402).send("es necesario ingresar query param  user")
+        next()
     }
 }
 
 module.exports = {
-    logMidleware: LogMidleware,
-    validateUser: ValidateUser
+    validateUserAge: ValidateUserAge
 
 }
